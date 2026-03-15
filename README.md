@@ -6,20 +6,25 @@ A curated collection of skills for [Claude Code](https://docs.anthropic.com/en/d
 
 ### Install as Plugin
 
-```bash
-claude plugin install github:Open-Agent-Tools/General-OAT-Skills
+From within Claude Code, add the marketplace and install:
+
 ```
+/plugin marketplace add Open-Agent-Tools/General-OAT-Skills
+/plugin install general-oat-skills@general-oat-skills
+```
+
+Skills will be available as `/general-oat-skills:check`, `/general-oat-skills:review`, etc.
 
 ### Manual Install
 
-Copy individual skills into your project's `.claude/skills/` directory, or symlink the whole collection:
+Clone and symlink into your project:
 
 ```bash
 git clone https://github.com/Open-Agent-Tools/General-OAT-Skills.git
 ln -s "$(pwd)/General-OAT-Skills/skills" /path/to/your-project/.claude/skills
 ```
 
-For personal (all-project) scope, copy skills into `~/.claude/skills/`.
+Or copy individual skill directories into `.claude/skills/` (project-level) or `~/.claude/skills/` (global).
 
 ## Skills
 
@@ -60,7 +65,8 @@ For personal (all-project) scope, copy skills into `~/.claude/skills/`.
 ```
 General-OAT-Skills/
 ├── .claude-plugin/
-│   └── marketplace.json
+│   ├── marketplace.json
+│   └── plugin.json
 ├── skills/
 │   ├── check/SKILL.md
 │   ├── cleanup/SKILL.md

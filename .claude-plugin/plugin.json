@@ -1,0 +1,10 @@
+{
+  "name": "general-oat-skills",
+  "version": "2.0.0",
+  "description": "Dev workflow and AI agent development skills for Claude Code",
+  "author": {
+    "name": "Open Agent Tools"
+  },
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0"
+}
