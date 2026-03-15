@@ -1,10 +1,10 @@
 # General OAT Skills
 
-A curated collection of powerful skills for Claude Code, built on the modern [Agent Skills](https://agentskills.io) open standard. Enhance your development workflow with project scaffolding, code quality, testing, review, and release management.
+A curated collection of skills for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), organized as a plugin using the [Agent Skills](https://agentskills.io) open standard.
 
-## Installation
+## Quick Start
 
-### Plugin Install (Recommended)
+### Install as Plugin
 
 ```bash
 claude plugin install github:Open-Agent-Tools/General-OAT-Skills
@@ -12,62 +12,82 @@ claude plugin install github:Open-Agent-Tools/General-OAT-Skills
 
 ### Manual Install
 
-Clone the repository and symlink the skills directory into your project:
+Copy individual skills into your project's `.claude/skills/` directory, or symlink the whole collection:
 
 ```bash
 git clone https://github.com/Open-Agent-Tools/General-OAT-Skills.git
-ln -s /path/to/General-OAT-Skills/skills .claude/skills
+ln -s "$(pwd)/General-OAT-Skills/skills" /path/to/your-project/.claude/skills
 ```
 
-Or copy individual skills into `~/.claude/skills/` for personal (all-project) scope.
+For personal (all-project) scope, copy skills into `~/.claude/skills/`.
 
-## Available Skills
+## Skills
 
 ### Core Dev Workflow
 
-| Skill | Command | Description |
-|-------|---------|-------------|
-| **check** | `/check` | Quick project health check: git status, recent commits, GitHub Actions, package build |
-| **cleanup** | `/cleanup` | Full code quality pipeline: ruff, mypy, pytest, then commit and push fixes |
-| **load** | `/load [directory]` | Load all markdown files from a directory into context for analysis |
-| **test** | `/test` | Comprehensive pytest suite with coverage reporting and auto-fix |
-| **review** | `/review [file-or-dir]` | Code review for best practices, performance, and error handling |
-| **publish** | `/publish <version>` | Release management: cleanup, version bump, build, GitHub release |
+| Skill | Description |
+|-------|-------------|
+| `/check` | Quick project health check — git status, recent commits, GitHub Actions, package build |
+| `/cleanup` | Full code quality pipeline — ruff, mypy, pytest — then commit and push fixes |
+| `/test` | Run pytest suite with coverage reporting and auto-fix on failures |
+| `/review [path]` | Code review for best practices, performance, and error handling |
+| `/load [directory]` | Load all markdown files from a directory into context |
+| `/publish <version>` | Release management — cleanup, version bump, build, GitHub release |
 
 ### AI Agent Development
 
-| Skill | Command | Description |
-|-------|---------|-------------|
-| **scaffold** | `/scaffold <template> [name]` | Create new projects from 18 templates (Python, Node.js, Rust, Go, AI frameworks) |
-| **run-adk-evals** | `/run-adk-evals <folder>` | Run Google ADK evaluations with detailed results and rate limiting |
+| Skill | Description |
+|-------|-------------|
+| `/scaffold <template> [name]` | Create a new project from 18 templates with full setup |
+| `/run-adk-evals <folder>` | Run Google ADK evaluations with detailed results and rate limiting |
 
 ### Scaffold Templates
 
-**Python**: `python-lib`, `python-cli`, `python-web`, `python-data`
+**General Purpose**
+`python-lib` `python-cli` `python-web` `python-data` `node-lib` `node-web` `rust-lib` `go-cli`
 
-**AI Agent Frameworks**: `python-langchain`, `python-adk`, `python-crewai`, `python-autogen`, `python-swarm`, `python-phidata`, `python-llama-index`, `python-haystack`, `python-semantic-kernel`, `python-agency-swarm`
+**AI Agent Frameworks**
+`python-langchain` `python-adk` `python-crewai` `python-autogen` `python-swarm` `python-phidata` `python-llama-index` `python-haystack` `python-semantic-kernel` `python-agency-swarm`
 
-**Other Languages**: `node-lib`, `node-web`, `rust-lib`, `go-cli`
+## Skill Behaviors
 
-## Skill Behavior
+- **Side-effect protection** — `cleanup`, `publish`, and `scaffold` have `disable-model-invocation: true`, so Claude won't auto-trigger them. They must be explicitly invoked.
+- **Context isolation** — `load` and `review` run in forked context (`context: fork`) to avoid polluting your main conversation.
+- **Argument hints** — Skills that accept parameters show usage hints in autocomplete.
 
-Skills use the modern Claude Code skills format with these behaviors:
+## Project Structure
 
-- **Auto-trigger disabled** on `cleanup`, `publish`, `scaffold` — these have side effects and must be explicitly invoked
-- **Fork context** on `load`, `review` — these run in isolated subagent context to protect main conversation
-- **Argument hints** shown in autocomplete for skills that accept parameters
+```
+General-OAT-Skills/
+├── .claude-plugin/
+│   └── marketplace.json
+├── skills/
+│   ├── check/SKILL.md
+│   ├── cleanup/SKILL.md
+│   ├── load/SKILL.md
+│   ├── test/SKILL.md
+│   ├── review/SKILL.md
+│   ├── publish/SKILL.md
+│   ├── run-adk-evals/SKILL.md
+│   └── scaffold/
+│       ├── SKILL.md
+│       └── templates/       # 18 project templates
+├── CODE_OF_CONDUCT.txt
+├── CONTRIBUTING.txt
+├── LICENSE
+└── SECURITY.txt
+```
 
 ## Contributing
 
-See [CONTRIBUTING.txt](CONTRIBUTING.txt) for guidelines on adding new skills.
+See [CONTRIBUTING.txt](CONTRIBUTING.txt) for full guidelines.
 
-### Quick Start
+To add a new skill:
 
-1. Create a new skill directory: `skills/<skill-name>/SKILL.md`
-2. Add YAML frontmatter with `name`, `description`, and `allowed-tools`
-3. Test locally: `ln -s /path/to/repo/skills ~/.claude/skills`
-4. Submit a pull request
+1. Create `skills/<skill-name>/SKILL.md` with YAML frontmatter (`name`, `description`, `allowed-tools`)
+2. Test locally by symlinking the repo's `skills/` directory into a project
+3. Submit a pull request
 
 ## License
 
-This project is licensed under the Apache License 2.0 — see the [LICENSE](LICENSE) file for details.
+Apache License 2.0 — see [LICENSE](LICENSE).
