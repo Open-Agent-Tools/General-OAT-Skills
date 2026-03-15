@@ -2,11 +2,11 @@
 
 A curated collection of skills for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), organized as a plugin using the [Agent Skills](https://agentskills.io) open standard.
 
-## Quick Start
+## Install
 
-### Install as Plugin
+### As a Plugin (Recommended)
 
-From within Claude Code, add the marketplace and install:
+From inside Claude Code, run:
 
 ```
 /plugin marketplace add Open-Agent-Tools/General-OAT-Skills
@@ -15,7 +15,7 @@ From within Claude Code, add the marketplace and install:
 
 Skills will be available as `/general-oat-skills:check`, `/general-oat-skills:review`, etc.
 
-### Manual Install
+### Manual
 
 Clone and symlink into your project:
 
