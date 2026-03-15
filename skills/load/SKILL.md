@@ -1,9 +1,16 @@
 ---
-description: Load all .md files from current or specified directory into context
+name: load
+description: >-
+  Load all markdown files from the current directory or a specified directory
+  into context for analysis and reference. Non-recursive, loads only
+  top-level .md files.
 allowed-tools:
-  - glob
-  - read
-  - ls
+  - Glob
+  - Read
+  - Bash
+context: fork
+user-invocable: true
+argument-hint: "[directory-path]"
 ---
 
 Please load all markdown (.md) files from the current directory or specified directory into context for analysis and reference.

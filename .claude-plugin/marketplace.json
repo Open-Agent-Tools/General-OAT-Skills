@@ -1,0 +1,61 @@
+{
+  "name": "general-oat-skills",
+  "display_name": "General OAT Skills - Dev Workflow & AI Agent Skills",
+  "description": "Powerful skills for Claude Code: project scaffolding (18 templates including LangChain, CrewAI, ADK), code quality cleanup, testing, review, and release management.",
+  "version": "2.0.0",
+  "author": "Open Agent Tools",
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0",
+  "skills": [
+    {
+      "name": "check",
+      "path": "skills/check/SKILL.md",
+      "category": "dev-workflow"
+    },
+    {
+      "name": "cleanup",
+      "path": "skills/cleanup/SKILL.md",
+      "category": "dev-workflow"
+    },
+    {
+      "name": "load",
+      "path": "skills/load/SKILL.md",
+      "category": "dev-workflow"
+    },
+    {
+      "name": "test",
+      "path": "skills/test/SKILL.md",
+      "category": "dev-workflow"
+    },
+    {
+      "name": "review",
+      "path": "skills/review/SKILL.md",
+      "category": "dev-workflow"
+    },
+    {
+      "name": "publish",
+      "path": "skills/publish/SKILL.md",
+      "category": "dev-workflow"
+    },
+    {
+      "name": "run-adk-evals",
+      "path": "skills/run-adk-evals/SKILL.md",
+      "category": "ai-agent-dev"
+    },
+{
+      "name": "scaffold",
+      "path": "skills/scaffold/SKILL.md",
+      "category": "ai-agent-dev"
+    }
+  ],
+  "categories": {
+    "dev-workflow": {
+      "display_name": "Core Dev Workflow",
+      "description": "Essential development workflow skills: status checks, code quality, testing, review, and release management"
+    },
+    "ai-agent-dev": {
+      "display_name": "AI Agent Development",
+      "description": "Skills for building AI agents: project scaffolding with 18 framework templates and ADK evaluations"
+    }
+  }
+}

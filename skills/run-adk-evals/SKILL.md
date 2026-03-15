@@ -1,24 +1,28 @@
 ---
-description: Run Google Agent Development Kit evaluations
+name: run-adk-evals
+description: >-
+  Run Google Agent Development Kit (ADK) evaluations in sorted order with
+  detailed results, failure summaries, and rate limiting between tests.
+  Specify the agent folder containing evals/ directory.
 allowed-tools:
-  - bash
-  - read
-  - glob
-  - ls
-  - task
+  - Bash
+  - Read
+  - Glob
+user-invocable: true
+argument-hint: "<agent-folder-path>"
 ---
 
 Run all Google Agent Development Kit (ADK) evaluations in the specified folder in numerical then alphabetical order with detailed results and failure summaries.
 
 **Usage**: Specify the folder containing the ADK agent and evaluations (e.g., `test_agent/`)
 
-**Example**: 
+**Example**:
 ```bash
 run_adk_evals my_agent/
 ```
 This will run all evaluations in `my_agent/evals/` directory in sorted order.
 
-**Prerequisites**: 
+**Prerequisites**:
 - Ensure required environment variables are set (e.g., GOOGLE_API_KEY, MCP server URLs)
 - Any required services must be running
 - ADK dependencies installed (`pip install -r requirements.txt`)
@@ -42,7 +46,7 @@ PYTHONPATH=.:$PYTHONPATH adk eval \
 
 **Rate Limiting**: Add 10-second delays between tests to avoid API limits. Use sequential execution only.
 
-**Output Format**: 
+**Output Format**:
 - Clear section headers with timestamps
 - Individual test results with pass/fail status
 - Detailed failure analysis for any failed evaluations

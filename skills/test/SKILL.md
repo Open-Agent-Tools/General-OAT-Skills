@@ -1,12 +1,16 @@
 ---
-description: Run comprehensive testing
+name: test
+description: >-
+  Run comprehensive test suite with pytest, report coverage statistics,
+  analyze failures, and attempt automatic fixes. Runs cleanup as a
+  prerequisite before testing.
 allowed-tools:
-  - bash
-  - read
-  - edit
-  - grep
-  - glob
-  - task
+  - Bash
+  - Read
+  - Edit
+  - Grep
+  - Glob
+user-invocable: true
 ---
 
 Please run comprehensive testing and report results:

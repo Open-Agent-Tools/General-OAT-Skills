@@ -1,12 +1,18 @@
 ---
-description: Review code for best practices and suggest improvements
+name: review
+description: >-
+  Review code for quality improvements, performance optimizations, error
+  handling, and language-specific best practices. Provide actionable
+  suggestions with automatic fixes for common issues.
 allowed-tools:
-  - bash
-  - read
-  - edit
-  - grep
-  - glob
-  - task
+  - Bash
+  - Read
+  - Edit
+  - Grep
+  - Glob
+context: fork
+user-invocable: true
+argument-hint: "[file-or-directory-to-review]"
 ---
 
 Please review the following code and provide suggestions for:

@@ -44,3 +44,15 @@
       - any-glob-to-any-file:
           - "SECURITY.md"
           - "**/security*.py"
+
+# Skills
+"area: skills":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "skills/**/*"
+
+# Plugin configuration
+"area: plugin":
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".claude-plugin/**/*"

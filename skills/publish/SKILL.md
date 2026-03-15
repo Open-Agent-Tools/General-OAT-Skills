@@ -1,12 +1,18 @@
 ---
-description: Prepare and trigger a new release
+name: publish
+description: >-
+  Prepare and trigger a new release: run cleanup, validate semantic versioning,
+  update pyproject.toml and docs, build, create GitHub release, and monitor
+  the publishing workflow. Supports patch/minor/major auto-increment.
 allowed-tools:
-  - bash
-  - read
-  - edit
-  - grep
-  - glob
-  - task
+  - Bash
+  - Read
+  - Edit
+  - Grep
+  - Glob
+disable-model-invocation: true
+user-invocable: true
+argument-hint: "<version|patch|minor|major>"
 ---
 
 Please prepare and trigger a new release for version: $ARGUMENTS

@@ -1,12 +1,15 @@
 ---
-description: Quick status check of git, commits, workflows, and build
+name: check
+description: >-
+  Run a quick project health check covering git status, recent commits,
+  GitHub Actions workflow runs, and package build verification. Use when
+  you want a fast overview of project state before starting work.
 allowed-tools:
-  - bash
-  - read
-  - edit
-  - grep
-  - glob
-  - task
+  - Bash
+  - Read
+  - Grep
+  - Glob
+user-invocable: true
 ---
 
 Please perform a quick status check:
