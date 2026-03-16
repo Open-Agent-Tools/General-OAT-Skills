@@ -38,6 +38,13 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 | `/load [directory]` | Load all markdown files from a directory into context |
 | `/publish <version>` | Release management — cleanup, version bump, build, GitHub release |
 
+### Quality & Learning
+
+| Skill | Description |
+|-------|-------------|
+| `/qa [focus]` | Multi-agent QA audit — code quality, architecture, security, tests, CI/CD, docs |
+| `/teach-me <topic> [flags]` | Interactive lesson-based teaching with web research, quizzes, and difficulty levels |
+
 ### AI Agent Development
 
 | Skill | Description |
@@ -55,7 +62,7 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 
 ## Skill Behaviors
 
-- **Side-effect protection** — `cleanup`, `publish`, and `scaffold` have `disable-model-invocation: true`, so Claude won't auto-trigger them. They must be explicitly invoked.
+- **Side-effect protection** — `cleanup`, `publish`, `scaffold`, and `qa` have `disable-model-invocation: true`, so Claude won't auto-trigger them. They must be explicitly invoked.
 - **Context isolation** — `load` and `check` run in forked context (`context: fork`) to avoid polluting your main conversation.
 - **Argument hints** — Skills that accept parameters show usage hints in autocomplete.
 
@@ -70,9 +77,11 @@ General-OAT-Skills/
 │   ├── check/SKILL.md
 │   ├── cleanup/SKILL.md
 │   ├── load/SKILL.md
-│   ├── test/SKILL.md
 │   ├── publish/SKILL.md
+│   ├── qa/SKILL.md
 │   ├── run-adk-evals/SKILL.md
+│   ├── teach-me/SKILL.md
+│   ├── test/SKILL.md
 │   └── scaffold/
 │       ├── SKILL.md
 │       └── templates/       # 18 project templates
