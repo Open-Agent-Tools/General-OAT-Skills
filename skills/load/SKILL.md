@@ -1,9 +1,10 @@
 ---
 name: load
 description: >-
-  Load all markdown files from the current directory or a specified directory
-  into context for analysis and reference. Non-recursive, loads only
-  top-level .md files.
+  Loads all markdown files from the current directory or a specified directory
+  into context for analysis and reference. Non-recursive, loads only top-level
+  .md files. Use when the user wants to read all docs in a folder, review
+  documentation, or bring markdown content into the conversation.
 allowed-tools:
   - Glob
   - Read

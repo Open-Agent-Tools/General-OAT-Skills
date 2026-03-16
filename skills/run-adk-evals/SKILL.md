@@ -1,9 +1,10 @@
 ---
 name: run-adk-evals
 description: >-
-  Run Google Agent Development Kit (ADK) evaluations in sorted order with
-  detailed results, failure summaries, and rate limiting between tests.
-  Specify the agent folder containing evals/ directory.
+  Runs Google Agent Development Kit (ADK) evaluations in sorted order with
+  detailed results, failure summaries, and rate limiting between tests. Use
+  when the user wants to run ADK evals, test agent performance, or validate
+  agent behavior against evaluation datasets.
 allowed-tools:
   - Bash
   - Read
@@ -18,7 +19,7 @@ Run all Google Agent Development Kit (ADK) evaluations in the specified folder i
 
 **Example**:
 ```bash
-run_adk_evals my_agent/
+/run-adk-evals my_agent/
 ```
 This will run all evaluations in `my_agent/evals/` directory in sorted order.
 

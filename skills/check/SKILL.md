@@ -1,18 +1,20 @@
 ---
 name: check
 description: >-
-  Run a quick project health check covering git status, recent commits,
+  Runs a quick project health check covering git status, recent commits,
   GitHub Actions workflow runs, and package build verification. Use when
-  you want a fast overview of project state before starting work.
+  starting a session, before a release, or to get a fast overview of
+  project state.
 allowed-tools:
   - Bash
   - Read
   - Grep
   - Glob
+context: fork
 user-invocable: true
 ---
 
-Please perform a quick status check:
+Perform a quick status check:
 
 **Output Format**: Use clear section headers and timestamps for each check.
 

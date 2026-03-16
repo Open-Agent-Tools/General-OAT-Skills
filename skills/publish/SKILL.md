@@ -1,9 +1,11 @@
 ---
 name: publish
 description: >-
-  Prepare and trigger a new release: run cleanup, validate semantic versioning,
-  update pyproject.toml and docs, build, create GitHub release, and monitor
-  the publishing workflow. Supports patch/minor/major auto-increment.
+  Prepares and triggers a new release: runs cleanup, validates semantic
+  versioning, updates pyproject.toml and docs, builds, creates a GitHub
+  release, and monitors the publishing workflow. Supports patch/minor/major
+  auto-increment. Use when the user wants to cut a release, bump the version,
+  or publish a new package version.
 allowed-tools:
   - Bash
   - Read
@@ -15,7 +17,7 @@ user-invocable: true
 argument-hint: "<version|patch|minor|major>"
 ---
 
-Please prepare and trigger a new release for version: $ARGUMENTS
+Prepare and trigger a new release for version: $ARGUMENTS
 
 Follow these steps:
 
@@ -35,5 +37,3 @@ Follow these steps:
 8. **Monitor**: Track the publishing workflow with `gh run list` to ensure it completes successfully
 
 **Error Handling**: If any step fails, attempt to fix the issue automatically. If unable to fix, report the specific error and suggested solutions before proceeding.
-
-The version number provided is: $ARGUMENTS

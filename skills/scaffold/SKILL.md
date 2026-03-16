@@ -1,10 +1,11 @@
 ---
 name: scaffold
 description: >-
-  Create a new project from templates with full setup including directory
+  Creates a new project from templates with full setup including directory
   structure, dependency management, git initialization, CI/CD, testing,
   and documentation. Supports Python, Node.js, Rust, Go, and 14 AI agent
-  framework templates.
+  framework templates. Use when the user wants to start a new project,
+  bootstrap a codebase, or create a project from a template.
 allowed-tools:
   - Bash
   - Read
@@ -90,5 +91,3 @@ Create a new project using the specified template: $ARGUMENTS
 - Show available commands (test, build, etc.)
 - Provide quick start guide
 - Suggest development workflow
-
-The template type provided is: $ARGUMENTS

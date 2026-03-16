@@ -13,7 +13,7 @@ From inside Claude Code, run:
 /plugin install general-oat-skills@general-oat-skills
 ```
 
-Skills will be available as `/general-oat-skills:check`, `/general-oat-skills:review`, etc.
+Skills will be available as `/general-oat-skills:check`, `/general-oat-skills:test`, etc.
 
 ### Manual
 
@@ -33,9 +33,8 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 | Skill | Description |
 |-------|-------------|
 | `/check` | Quick project health check — git status, recent commits, GitHub Actions, package build |
-| `/cleanup` | Full code quality pipeline — ruff, mypy, pytest — then commit and push fixes |
+| `/cleanup` | Full code quality pipeline — ruff, mypy, pytest — with validation loops |
 | `/test` | Run pytest suite with coverage reporting and auto-fix on failures |
-| `/review [path]` | Code review for best practices, performance, and error handling |
 | `/load [directory]` | Load all markdown files from a directory into context |
 | `/publish <version>` | Release management — cleanup, version bump, build, GitHub release |
 
@@ -57,7 +56,7 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 ## Skill Behaviors
 
 - **Side-effect protection** — `cleanup`, `publish`, and `scaffold` have `disable-model-invocation: true`, so Claude won't auto-trigger them. They must be explicitly invoked.
-- **Context isolation** — `load` and `review` run in forked context (`context: fork`) to avoid polluting your main conversation.
+- **Context isolation** — `load` and `check` run in forked context (`context: fork`) to avoid polluting your main conversation.
 - **Argument hints** — Skills that accept parameters show usage hints in autocomplete.
 
 ## Project Structure
@@ -72,7 +71,6 @@ General-OAT-Skills/
 │   ├── cleanup/SKILL.md
 │   ├── load/SKILL.md
 │   ├── test/SKILL.md
-│   ├── review/SKILL.md
 │   ├── publish/SKILL.md
 │   ├── run-adk-evals/SKILL.md
 │   └── scaffold/
