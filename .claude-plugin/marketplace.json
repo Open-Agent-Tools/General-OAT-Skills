@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Dev workflow and AI agent development skills for Claude Code",
-    "version": "2.0.0"
+    "version": "2.1.0"
   },
   "plugins": [
     {
       "name": "general-oat-skills",
       "source": "./",
       "description": "Project scaffolding (18 templates), code quality, testing, review, and release management",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "license": "Apache-2.0",
       "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
       "keywords": ["dev-workflow", "scaffolding", "code-quality", "ai-agents"]
