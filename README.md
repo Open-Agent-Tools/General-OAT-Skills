@@ -6,14 +6,38 @@ A curated collection of skills for [Claude Code](https://docs.anthropic.com/en/d
 
 ### As a Plugin (Recommended)
 
-From inside Claude Code, run:
+From inside Claude Code, first add the marketplace:
 
 ```
 /plugin marketplace add Open-Agent-Tools/General-OAT-Skills
+```
+
+Then install at the level you need:
+
+**Everything** — all 9 skills:
+```
 /plugin install general-oat-skills@general-oat-skills
 ```
 
-Skills will be available as `/general-oat-skills:check`, `/general-oat-skills:test`, etc.
+**Bundles** — thematic groups:
+```
+/plugin install general-oat-skills@oat-core       # check, cleanup, test, load, publish
+/plugin install general-oat-skills@oat-quality     # qa, teach-me
+/plugin install general-oat-skills@oat-agents      # scaffold, run-adk-evals
+```
+
+**Individual skills** — pick exactly what you need:
+```
+/plugin install general-oat-skills@oat-check
+/plugin install general-oat-skills@oat-cleanup
+/plugin install general-oat-skills@oat-test
+/plugin install general-oat-skills@oat-load
+/plugin install general-oat-skills@oat-publish
+/plugin install general-oat-skills@oat-qa
+/plugin install general-oat-skills@oat-scaffold
+/plugin install general-oat-skills@oat-teach-me
+/plugin install general-oat-skills@oat-run-adk-evals
+```
 
 ### Manual
 
@@ -71,9 +95,9 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 ```
 General-OAT-Skills/
 ├── .claude-plugin/
-│   ├── marketplace.json
+│   ├── marketplace.json      # all install targets (full, bundles, individual)
 │   └── plugin.json
-├── skills/
+├── skills/                   # canonical skill definitions
 │   ├── check/SKILL.md
 │   ├── cleanup/SKILL.md
 │   ├── load/SKILL.md
@@ -84,7 +108,10 @@ General-OAT-Skills/
 │   ├── test/SKILL.md
 │   └── scaffold/
 │       ├── SKILL.md
-│       └── templates/       # 18 project templates
+│       └── templates/        # 18 project templates
+├── skills-core/              # bundle: symlinks → check, cleanup, test, load, publish
+├── skills-quality/           # bundle: symlinks → qa, teach-me
+├── skills-agents/            # bundle: symlinks → scaffold, run-adk-evals
 ├── CODE_OF_CONDUCT.txt
 ├── CONTRIBUTING.txt
 ├── LICENSE
