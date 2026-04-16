@@ -14,14 +14,14 @@ From inside Claude Code, first add the marketplace:
 
 Then install at the level you need:
 
-**Everything** — all 9 skills:
+**Everything** — all 10 skills:
 ```
 /plugin install general-oat-skills@general-oat-skills
 ```
 
 **Bundles** — thematic groups:
 ```
-/plugin install general-oat-skills@oat-core       # check, cleanup, test, load, publish
+/plugin install general-oat-skills@oat-core       # check, cleanup, test, load, publish-python, publish-rust
 /plugin install general-oat-skills@oat-quality     # qa, teach-me
 /plugin install general-oat-skills@oat-agents      # scaffold, run-adk-evals
 ```
@@ -32,7 +32,8 @@ Then install at the level you need:
 /plugin install general-oat-skills@oat-cleanup
 /plugin install general-oat-skills@oat-test
 /plugin install general-oat-skills@oat-load
-/plugin install general-oat-skills@oat-publish
+/plugin install general-oat-skills@oat-publish-python
+/plugin install general-oat-skills@oat-publish-rust
 /plugin install general-oat-skills@oat-qa
 /plugin install general-oat-skills@oat-scaffold
 /plugin install general-oat-skills@oat-teach-me
@@ -60,7 +61,8 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 | `/cleanup` | Full code quality pipeline — ruff, mypy, pytest — with validation loops |
 | `/test` | Run pytest suite with coverage reporting and auto-fix on failures |
 | `/load [directory]` | Load all markdown files from a directory into context |
-| `/publish <version>` | Release management — cleanup, version bump, build, GitHub release |
+| `/publish-python <version>` | Python release — cleanup, version bump, uv build, GitHub release |
+| `/publish-rust <bump>` | Rust crate/workspace release — verify gates, version bump, signed tag, CI or direct crates.io publish |
 
 ### Quality & Learning
 
@@ -86,7 +88,7 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 
 ## Skill Behaviors
 
-- **Side-effect protection** — `cleanup`, `publish`, `scaffold`, and `qa` have `disable-model-invocation: true`, so Claude won't auto-trigger them. They must be explicitly invoked.
+- **Side-effect protection** — `cleanup`, `publish-python`, `publish-rust`, `scaffold`, and `qa` have `disable-model-invocation: true`, so Claude won't auto-trigger them. They must be explicitly invoked.
 - **Context isolation** — `load` and `check` run in forked context (`context: fork`) to avoid polluting your main conversation.
 - **Argument hints** — Skills that accept parameters show usage hints in autocomplete.
 
@@ -101,7 +103,8 @@ General-OAT-Skills/
 │   ├── check/SKILL.md
 │   ├── cleanup/SKILL.md
 │   ├── load/SKILL.md
-│   ├── publish/SKILL.md
+│   ├── publish-python/SKILL.md
+│   ├── publish-rust/SKILL.md
 │   ├── qa/SKILL.md
 │   ├── run-adk-evals/SKILL.md
 │   ├── teach-me/SKILL.md
@@ -109,7 +112,7 @@ General-OAT-Skills/
 │   └── scaffold/
 │       ├── SKILL.md
 │       └── templates/        # 18 project templates
-├── skills-core/              # bundle: symlinks → check, cleanup, test, load, publish
+├── skills-core/              # bundle: symlinks → check, cleanup, test, load, publish-python, publish-rust
 ├── skills-quality/           # bundle: symlinks → qa, teach-me
 ├── skills-agents/            # bundle: symlinks → scaffold, run-adk-evals
 ├── CODE_OF_CONDUCT.txt

@@ -1,11 +1,11 @@
 ---
-name: publish
+name: publish-python
 description: >-
-  Prepares and triggers a new release: runs cleanup, validates semantic
-  versioning, updates pyproject.toml and docs, builds, creates a GitHub
-  release, and monitors the publishing workflow. Supports patch/minor/major
-  auto-increment. Use when the user wants to cut a release, bump the version,
-  or publish a new package version.
+  Prepares and triggers a new Python package release: runs cleanup, validates
+  semantic versioning, updates pyproject.toml and docs, builds with uv, creates
+  a GitHub release, and monitors the publishing workflow. Supports
+  patch/minor/major auto-increment. Use when the user wants to cut a release,
+  bump the version, or publish a new Python package version.
 allowed-tools:
   - Bash
   - Read
