@@ -115,6 +115,7 @@ General-OAT-Skills/
 ├── skills-core/              # bundle: symlinks → check, cleanup, test, load, publish-python, publish-rust
 ├── skills-quality/           # bundle: symlinks → qa, teach-me
 ├── skills-agents/            # bundle: symlinks → scaffold, run-adk-evals
+├── skill-*/                  # individual: one symlink each (skill-check/, skill-qa/, etc.)
 ├── CODE_OF_CONDUCT.txt
 ├── CONTRIBUTING.txt
 ├── LICENSE

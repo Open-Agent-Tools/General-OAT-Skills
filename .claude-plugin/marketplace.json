@@ -48,7 +48,7 @@
 
     {
       "name": "oat-check",
-      "source": "./skills/check",
+      "source": "./skill-check",
       "description": "Quick project health check: git status, recent commits, GitHub Actions, package build",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -57,7 +57,7 @@
     },
     {
       "name": "oat-cleanup",
-      "source": "./skills/cleanup",
+      "source": "./skill-cleanup",
       "description": "Code quality pipeline: ruff linting/formatting, mypy type checking, pytest",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -66,7 +66,7 @@
     },
     {
       "name": "oat-test",
-      "source": "./skills/test",
+      "source": "./skill-test",
       "description": "Run pytest suite with coverage reporting and auto-fix on failures",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -75,7 +75,7 @@
     },
     {
       "name": "oat-load",
-      "source": "./skills/load",
+      "source": "./skill-load",
       "description": "Load all markdown files from a directory into context",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -84,7 +84,7 @@
     },
     {
       "name": "oat-publish-python",
-      "source": "./skills/publish-python",
+      "source": "./skill-publish-python",
       "description": "Python release management: cleanup, version bump, uv build, GitHub release, publish monitoring",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -93,7 +93,7 @@
     },
     {
       "name": "oat-publish-rust",
-      "source": "./skills/publish-rust",
+      "source": "./skill-publish-rust",
       "description": "Rust crate/workspace release: verification gates, version bump, signed tag, CI or direct crates.io publish",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -102,7 +102,7 @@
     },
     {
       "name": "oat-qa",
-      "source": "./skills/qa",
+      "source": "./skill-qa",
       "description": "Multi-agent QA audit: code quality, architecture, security, tests, CI/CD, docs",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -111,7 +111,7 @@
     },
     {
       "name": "oat-scaffold",
-      "source": "./skills/scaffold",
+      "source": "./skill-scaffold",
       "description": "Create projects from 18 templates: Python, Node.js, Rust, Go, and AI agent frameworks",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -120,7 +120,7 @@
     },
     {
       "name": "oat-teach-me",
-      "source": "./skills/teach-me",
+      "source": "./skill-teach-me",
       "description": "Interactive lesson-based teaching with web research, quizzes, and difficulty levels",
       "version": "2.3.0",
       "license": "Apache-2.0",
@@ -129,7 +129,7 @@
     },
     {
       "name": "oat-run-adk-evals",
-      "source": "./skills/run-adk-evals",
+      "source": "./skill-run-adk-evals",
       "description": "Run Google ADK evaluations with detailed results and rate limiting",
       "version": "2.3.0",
       "license": "Apache-2.0",
