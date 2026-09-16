@@ -2,8 +2,9 @@
 name: scope-it
 description: >-
   Interrogates a vague task one question at a time until it is fully scoped, then
-  writes a ready-to-use prompt with four sections: what (goals), why (the problem),
-  constraints (guardrails), and done (success criteria). Builds an analysis tree of
+  writes a ready-to-use prompt: what (goals), why (the problem), constraints
+  (guardrails), done (success criteria), and the open questions it deliberately
+  left unresolved, each with the assumption being made. Builds an analysis tree of
   the problem and asks only the questions whose answers are not already discoverable.
   Use when the user has a half-formed task, wants to turn an idea into a brief for
   Claude or Codex, or asks to scope, spec, or define a piece of work before building.

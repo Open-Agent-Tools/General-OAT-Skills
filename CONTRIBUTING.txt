@@ -49,6 +49,23 @@ Each skill is a `SKILL.md` file inside a `skills/<name>/` directory. The file us
 
 No build or compilation required - edit the `SKILL.md` files directly.
 
+`skills/` is the single source of truth. Every skill is also exposed as its own install
+target and through a bundle, using symlink wrapper roots:
+
+    skill-<name>/skills/<name>   -> ../../skills/<name>
+    skills-<bundle>/skills/<name> -> ../../skills/<name>
+
+The `skills/` level inside each wrapper is required. Plugin skills are discovered at
+`<plugin-root>/skills/<name>/SKILL.md`; a symlink placed one level shallower installs
+without error and ships zero skills. Verify any new target with:
+
+    claude plugin validate .
+    claude plugin install oat-<name>@general-oat-skills
+    claude plugin details oat-<name>@general-oat-skills   # expect Skills (1)
+
+A new skill also needs an `oat-<name>` entry in `.claude-plugin/marketplace.json` and a
+version bump in both `.claude-plugin/*.json`.
+
 ## Making Changes
 
 1. **Create a new branch** for your changes:

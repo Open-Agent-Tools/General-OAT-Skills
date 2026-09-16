@@ -115,10 +115,10 @@ General-OAT-Skills/
 │   └── scaffold/
 │       ├── SKILL.md
 │       └── templates/        # 18 project templates
-├── skills-core/              # bundle: symlinks → check, cleanup, test, load, publish-python, publish-rust
-├── skills-quality/           # bundle: symlinks → qa, scope-it, teach-me
-├── skills-agents/            # bundle: symlinks → scaffold, run-adk-evals
-├── skill-*/                  # individual: one symlink each (skill-check/, skill-qa/, etc.)
+├── skills-core/skills/       # bundle: symlinks → check, cleanup, test, load, publish-python, publish-rust
+├── skills-quality/skills/    # bundle: symlinks → qa, scope-it, teach-me
+├── skills-agents/skills/     # bundle: symlinks → scaffold, run-adk-evals
+├── skill-*/skills/           # individual: one symlink each (skill-check/skills/check, etc.)
 ├── CODE_OF_CONDUCT.txt
 ├── CONTRIBUTING.txt
 ├── LICENSE
@@ -132,8 +132,19 @@ See [CONTRIBUTING.txt](CONTRIBUTING.txt) for full guidelines.
 To add a new skill:
 
 1. Create `skills/<skill-name>/SKILL.md` with YAML frontmatter (`name`, `description`, `allowed-tools`)
-2. Test locally by symlinking the repo's `skills/` directory into a project
-3. Submit a pull request
+2. Add the wrapper roots so the skill ships through every install target:
+   ```bash
+   mkdir -p skill-<name>/skills && ln -s ../../skills/<name> skill-<name>/skills/<name>
+   ln -s ../../skills/<name> skills-<bundle>/skills/<name>
+   ```
+   The `skills/` level is required — plugin skills are discovered at
+   `<plugin-root>/skills/<name>/SKILL.md`, and a symlink one level shallower installs
+   cleanly while shipping zero skills.
+3. Add an `oat-<name>` entry to `.claude-plugin/marketplace.json` pointing at `./skill-<name>`,
+   and bump the version in both `.claude-plugin/*.json`
+4. Verify with `claude plugin validate .`, then install the target and confirm
+   `claude plugin details oat-<name>@general-oat-skills` reports `Skills (1)`
+5. Submit a pull request
 
 ## License
 
