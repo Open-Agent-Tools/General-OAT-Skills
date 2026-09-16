@@ -4,16 +4,20 @@ description: >-
   Interrogates a vague task one question at a time until it is fully scoped, then
   writes a ready-to-use prompt: what (goals), why (the problem), constraints
   (guardrails), done (success criteria), and the open questions it deliberately
-  left unresolved, each with the assumption being made. Builds an analysis tree of
-  the problem and asks only the questions whose answers are not already discoverable.
-  Use when the user has a half-formed task, wants to turn an idea into a brief for
-  Claude or Codex, or asks to scope, spec, or define a piece of work before building.
+  left unresolved, each with the assumption being made. Works for any task, not
+  just code — writing, research, a decision, a process — building an analysis tree
+  of the problem and asking only the questions whose answers are not already
+  discoverable. Use when the user has a half-formed task, wants to turn an idea
+  into a brief for Claude or Codex, or asks to scope, spec, or define a piece of
+  work before starting it.
 allowed-tools:
   - AskUserQuestion
   - Read
   - Grep
   - Glob
   - Bash
+  - WebSearch
+  - WebFetch
   - Agent
   - Write
 user-invocable: true
@@ -23,9 +27,9 @@ argument-hint: "[what you want built or figured out]"
 # Scope It
 
 Turn a vague request into a prompt someone can hand to Claude or Codex and get the
-right thing back on the first try. You do this by interviewing the user, one question
-at a time, until four things are pinned down: **what**, **why**, **constraints**, and
-**done**.
+right thing back on the first try. The task can be anything — code, writing, research, a
+decision, a process. You get there by interviewing the user, one question at a time,
+until four things are pinned down: **what**, **why**, **constraints**, and **done**.
 
 ## The analysis tree
 
@@ -39,8 +43,8 @@ The roots resolve in dependency order, because each one constrains the next:
    knowing what pain X relieves.
 2. **What** — the goal and its boundary. Which outcomes count, which adjacent things
    are explicitly *not* being asked for.
-3. **Constraints** — the guardrails: stack, files and systems that must not move,
-   compatibility, budget, deadline, taste, things previously tried that failed.
+3. **Constraints** — the guardrails: whatever must not move, compatibility, budget,
+   deadline, audience, taste, things previously tried that failed.
 4. **Done** — the success criteria and the quality bar, stated so that someone else
    could check them without asking a follow-up question.
 
@@ -51,15 +55,20 @@ ones below it, and sometimes prunes a whole branch as irrelevant.
 
 ## Running the interview
 
-**Find facts yourself; ask only for decisions.** Anything the environment can answer —
-what language the project is in, whether a test suite exists, which framework version
-is pinned, what the CI does — you look up before asking. Dispatch subagents for the
-slower lookups and keep interviewing while they run. Only judgment calls, preferences,
-and things that live in the user's head are worth a question.
+**Find facts yourself; ask only for decisions.** Anything that can be looked up, you
+look up before asking. On this machine that means the filesystem and the shell — what
+language a project is in, whether a test suite exists, which version is pinned, what
+already lives in a folder. Off it, that means the web: a library's current API, a
+service's limits or pricing, a published spec, what a named tool actually does. Reach
+for either without waiting to be told to. Dispatch subagents for the slower lookups and
+keep interviewing while they run. Only judgment calls, preferences, tradeoffs, and
+things that live in the user's head are worth a question.
 
 When a lookup answers something, fold it into the next question as context rather than
 asking about it: *"There's already a pytest suite with 84% coverage, so the real
-question is whether this needs new tests or just passes the existing ones."*
+question is whether this needs new tests or just passes the existing ones."* Or:
+*"Their API caps exports at 1,000 rows per call, so the question is really whether this
+runs once or on a schedule."*
 
 **Ask one question per turn, using AskUserQuestion.** One decision per question, 2–4
 concrete options, your recommendation first and labeled `(Recommended)`, and a
@@ -67,7 +76,7 @@ description on each option that says what choosing it actually means for *this* 
 not generic tradeoff commentary. Never present options you would not accept as answers.
 
 **Start immediately.** Don't ask the user to prepare anything. Extract everything you
-can from their opening message, settle what you can from the environment, then ask the
+can from their opening message, settle what you can by looking it up, then ask the
 first real question.
 
 **Stop when the tree is empty**, or when the remaining questions would not change a
@@ -95,14 +104,18 @@ numbered when the work has distinct steps or more than one goal, one per line. T
 what is explicitly out of scope, so the reader doesn't widen the task on their own.
 
 ## Constraints
-The guardrails: languages, versions, files and systems that must not change, patterns
-to follow or avoid, budget, deadline, approaches already tried and why they failed.
-Name real paths, commands, and versions found during the interview.
+The guardrails: whatever must not change, whatever must be followed or avoided, budget,
+deadline, audience, house style, approaches already tried and why they failed. On a
+coding task that is usually languages, versions, files and systems; on other work it is
+just as often a format, a length, a tone, a source that has to be cited, or a person who
+has to approve. Name the concrete thing wherever the interview surfaced one — a path, a
+command, a version, a URL, a name.
 
 ## Done
 The success criteria, each one checkable by someone who wasn't part of this
-conversation: the command that must pass, the behavior that must hold, the quality bar
-to clear. Include how the work should be verified, not just what the end state is.
+conversation: the command that must pass, the behavior that must hold, the question that
+must be answered, the quality bar to clear. Include how the work should be verified, not
+just what the end state is — and say who or what does the verifying when no command can.
 
 ## Open questions
 Always present, always last. Everything deliberately deferred, everything the
@@ -123,9 +136,9 @@ then gets out of the way.
 - **Every criterion is checkable.** "Fast enough" is not a criterion; "p95 under 200ms
   on the existing benchmark" is. If a criterion can't be checked, it's a constraint or
   it's noise.
-- **Boundaries are explicit.** Say what not to touch and what not to build. A capable
-  model will otherwise tidy, refactor, and generalize past the edge of the task.
-- **Concrete over abstract.** Real file paths, real commands, real version numbers —
+- **Boundaries are explicit.** Say what not to touch and what not to produce. A capable
+  model will otherwise tidy, expand, and generalize past the edge of the task.
+- **Concrete over abstract.** Real paths, commands, versions, URLs, names, numbers —
   whatever the interview surfaced. Abstractions in a prompt become guesses in the work.
 - **Describe outcomes, not keystrokes.** Prescribe a sequence only where the order
   genuinely matters. Over-specified steps make the output worse, not more reliable.
