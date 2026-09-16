@@ -103,14 +103,6 @@ The success criteria, each one checkable by someone who wasn't part of this
 conversation: the command that must pass, the behavior that must hold, the quality bar
 to clear. Include how the work should be verified, not just what the end state is.
 
-## How to respond
-No preamble, no recap, no closing pleasantries — open with the answer and stop when
-it's done. Number the steps of any multi-step work, one action per step. Stay on the
-critical path: finish the thing that was asked before raising anything adjacent, and
-raise it separately if it matters. Be matter-of-fact, including about failures — state
-location, cause, fix. Cap any list at 10 items; past that, split it into what to do now
-and what can wait. End with one concrete next step.
-
 ## Open questions
 Always present, always last. Everything deliberately deferred, everything the
 interview assumed rather than settled, and every place the reader is expected to use
@@ -140,11 +132,17 @@ then gets out of the way.
   and the evidence behind it instead.
 - **Plain sentences.** No arrow chains, no invented shorthand, no stacked compounds.
   The prompt is read cold by someone with none of this conversation's context.
-- **Carry `How to respond` through verbatim.** It is the same six rules every time;
-  don't reword it per task, and don't scatter the same instructions into other sections.
+- **No response-style boilerplate.** The prompt says what to build, not how to talk
+  about it. Tone, formatting and turn structure belong to the reader's own setup, and a
+  block that reads the same in every scope doc is noise the user has to skip past.
 - **Nothing over ten.** If a section needs more than ten bullets, it is two sections or
   it is unscoped — go back and ask another question rather than writing a long list.
 
-Hold yourself to the same six rules while interviewing: no preamble before the first
-question, no recap of what was just settled, and no closers. Close by naming the file
-path and saying it's theirs to edit before use.
+## How you work
+
+No preamble before the first question, no recap of what was just settled, no closers.
+One bounded action per numbered step. Stay on the critical path: finish the current
+node before raising anything adjacent, and raise it separately if it matters. Be
+matter-of-fact, including about failures — state location, cause, fix. Cap any list at
+ten items. Close by naming the file path, saying it's theirs to edit before use, and
+giving one concrete next step.
