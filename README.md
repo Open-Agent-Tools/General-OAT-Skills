@@ -14,7 +14,7 @@ From inside Claude Code, first add the marketplace:
 
 Then install at the level you need:
 
-**Everything** — all 10 skills:
+**Everything** — all 11 skills:
 ```
 /plugin install general-oat-skills@general-oat-skills
 ```
@@ -22,7 +22,7 @@ Then install at the level you need:
 **Bundles** — thematic groups:
 ```
 /plugin install general-oat-skills@oat-core       # check, cleanup, test, load, publish-python, publish-rust
-/plugin install general-oat-skills@oat-quality     # qa, teach-me
+/plugin install general-oat-skills@oat-quality     # qa, scope-it, teach-me
 /plugin install general-oat-skills@oat-agents      # scaffold, run-adk-evals
 ```
 
@@ -35,6 +35,7 @@ Then install at the level you need:
 /plugin install general-oat-skills@oat-publish-python
 /plugin install general-oat-skills@oat-publish-rust
 /plugin install general-oat-skills@oat-qa
+/plugin install general-oat-skills@oat-scope-it
 /plugin install general-oat-skills@oat-scaffold
 /plugin install general-oat-skills@oat-teach-me
 /plugin install general-oat-skills@oat-run-adk-evals
@@ -69,6 +70,7 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 | Skill | Description |
 |-------|-------------|
 | `/qa [focus]` | Multi-agent QA audit — code quality, architecture, security, tests, CI/CD, docs |
+| `/scope-it [task]` | One-question-at-a-time interview that turns a vague task into a ready-to-use prompt — what, why, constraints, done |
 | `/teach-me <topic> [flags]` | Interactive lesson-based teaching with web research, quizzes, and difficulty levels |
 
 ### AI Agent Development
@@ -107,13 +109,14 @@ General-OAT-Skills/
 │   ├── publish-rust/SKILL.md
 │   ├── qa/SKILL.md
 │   ├── run-adk-evals/SKILL.md
+│   ├── scope-it/SKILL.md
 │   ├── teach-me/SKILL.md
 │   ├── test/SKILL.md
 │   └── scaffold/
 │       ├── SKILL.md
 │       └── templates/        # 18 project templates
 ├── skills-core/              # bundle: symlinks → check, cleanup, test, load, publish-python, publish-rust
-├── skills-quality/           # bundle: symlinks → qa, teach-me
+├── skills-quality/           # bundle: symlinks → qa, scope-it, teach-me
 ├── skills-agents/            # bundle: symlinks → scaffold, run-adk-evals
 ├── skill-*/                  # individual: one symlink each (skill-check/, skill-qa/, etc.)
 ├── CODE_OF_CONDUCT.txt
