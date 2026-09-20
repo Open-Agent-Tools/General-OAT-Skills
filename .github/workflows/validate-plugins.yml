@@ -78,3 +78,24 @@ jobs:
           done < <(jq -r '.plugins[] | "\(.name) \(.source)"' "$mp")
 
           exit $fail
+
+      - name: Check README install commands resolve
+        run: |
+          python3 - <<'PY'
+          import json, re, pathlib, sys
+          mp = json.load(open(".claude-plugin/marketplace.json"))
+          names = {p["name"] for p in mp["plugins"]}
+          mkt = mp["name"]
+          cmds = re.findall(r'^/plugin install (\S+)', pathlib.Path("README.md").read_text(), re.M)
+          fail = False
+          for c in cmds:
+              plug, _, m = c.partition("@")
+              if plug not in names:
+                  print(f"::error::README: no plugin named '{plug}' ({c})"); fail = True
+              elif m != mkt:
+                  print(f"::error::README: '{c}' has the arguments reversed -- the form is <plugin>@{mkt}"); fail = True
+          for n in sorted(names - {c.partition("@")[0] for c in cmds}):
+              print(f"::error::README: no install command documented for '{n}'"); fail = True
+          print(f"{len(cmds)} install commands, {len(names)} plugins")
+          sys.exit(fail)
+          PY

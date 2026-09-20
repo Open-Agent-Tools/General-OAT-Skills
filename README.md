@@ -12,34 +12,38 @@ From inside Claude Code, first add the marketplace:
 /plugin marketplace add Open-Agent-Tools/General-OAT-Skills
 ```
 
-Then install at the level you need:
+Then install at the level you need. The form is `<plugin>@<marketplace>`, so the
+marketplace name `general-oat-skills` is always on the **right** of the `@`:
 
 **Everything** — all 11 skills:
 ```
 /plugin install general-oat-skills@general-oat-skills
 ```
+(The bundle plugin and the marketplace share a name. That one really is doubled.)
 
 **Bundles** — thematic groups:
 ```
-/plugin install general-oat-skills@oat-core       # check, cleanup, test, load, publish-python, publish-rust
-/plugin install general-oat-skills@oat-quality     # qa, scope-it, teach-me
-/plugin install general-oat-skills@oat-agents      # scaffold, run-adk-evals
+/plugin install oat-core@general-oat-skills      # check, cleanup, test, load, publish-python, publish-rust
+/plugin install oat-quality@general-oat-skills   # qa, scope-it, teach-me
+/plugin install oat-agents@general-oat-skills    # scaffold, run-adk-evals
 ```
 
 **Individual skills** — pick exactly what you need:
 ```
-/plugin install general-oat-skills@oat-check
-/plugin install general-oat-skills@oat-cleanup
-/plugin install general-oat-skills@oat-test
-/plugin install general-oat-skills@oat-load
-/plugin install general-oat-skills@oat-publish-python
-/plugin install general-oat-skills@oat-publish-rust
-/plugin install general-oat-skills@oat-qa
-/plugin install general-oat-skills@oat-scope-it
-/plugin install general-oat-skills@oat-scaffold
-/plugin install general-oat-skills@oat-teach-me
-/plugin install general-oat-skills@oat-run-adk-evals
+/plugin install oat-check@general-oat-skills
+/plugin install oat-cleanup@general-oat-skills
+/plugin install oat-test@general-oat-skills
+/plugin install oat-load@general-oat-skills
+/plugin install oat-publish-python@general-oat-skills
+/plugin install oat-publish-rust@general-oat-skills
+/plugin install oat-qa@general-oat-skills
+/plugin install oat-scope-it@general-oat-skills
+/plugin install oat-scaffold@general-oat-skills
+/plugin install oat-teach-me@general-oat-skills
+/plugin install oat-run-adk-evals@general-oat-skills
 ```
+
+Then `/reload-plugins` to pick them up without restarting.
 
 ### Manual
 
@@ -54,31 +58,43 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 
 ## Skills
 
+Plugin skills are namespaced by the plugin you installed them from, as
+`/<plugin>:<skill>`. The same skill therefore has a different name depending on
+which target you chose:
+
+| installed via | invoke `check` as |
+|---|---|
+| `general-oat-skills` | `/general-oat-skills:check` |
+| `oat-core` | `/oat-core:check` |
+| `oat-check` | `/oat-check:check` |
+
+Only the manual install above gives you a bare `/check`.
+
 ### Core Dev Workflow
 
 | Skill | Description |
 |-------|-------------|
-| `/check` | Quick project health check — git status, recent commits, GitHub Actions, package build |
-| `/cleanup` | Full code quality pipeline — ruff, mypy, pytest — with validation loops |
-| `/test` | Run pytest suite with coverage reporting and auto-fix on failures |
-| `/load [directory]` | Load all markdown files from a directory into context |
-| `/publish-python <version>` | Python release — cleanup, version bump, uv build, GitHub release |
-| `/publish-rust <bump>` | Rust crate/workspace release — verify gates, version bump, signed tag, CI or direct crates.io publish |
+| `check` | Quick project health check — git status, recent commits, GitHub Actions, package build |
+| `cleanup` | Full code quality pipeline — ruff, mypy, pytest — with validation loops |
+| `test` | Run pytest suite with coverage reporting and auto-fix on failures |
+| `load [directory]` | Load all markdown files from a directory into context |
+| `publish-python <version>` | Python release — cleanup, version bump, uv build, GitHub release |
+| `publish-rust <bump>` | Rust crate/workspace release — verify gates, version bump, signed tag, CI or direct crates.io publish |
 
 ### Quality & Learning
 
 | Skill | Description |
 |-------|-------------|
-| `/qa [focus]` | Multi-agent QA audit — code quality, architecture, security, tests, CI/CD, docs |
-| `/scope-it [task]` | One-question-at-a-time interview that turns a vague task into a ready-to-use prompt — what, why, constraints, done |
-| `/teach-me <topic> [flags]` | Interactive lesson-based teaching with web research, quizzes, and difficulty levels |
+| `qa [focus]` | Multi-agent QA audit — code quality, architecture, security, tests, CI/CD, docs |
+| `scope-it [task]` | One-question-at-a-time interview that turns a vague task into a ready-to-use prompt — what, why, constraints, done |
+| `teach-me <topic> [flags]` | Interactive lesson-based teaching with web research, quizzes, and difficulty levels |
 
 ### AI Agent Development
 
 | Skill | Description |
 |-------|-------------|
-| `/scaffold <template> [name]` | Create a new project from 18 templates with full setup |
-| `/run-adk-evals <folder>` | Run Google ADK evaluations with detailed results and rate limiting |
+| `scaffold <template> [name]` | Create a new project from 18 templates with full setup |
+| `run-adk-evals <folder>` | Run Google ADK evaluations with detailed results and rate limiting |
 
 ### Scaffold Templates
 
@@ -99,8 +115,8 @@ Or copy individual skill directories into `.claude/skills/` (project-level) or `
 ```
 General-OAT-Skills/
 ├── .claude-plugin/
-│   ├── marketplace.json      # all install targets (full, bundles, individual)
-│   └── plugin.json
+│   ├── marketplace.json      # all 15 install targets (full, bundles, individual)
+│   └── plugin.json           # the root is also the `general-oat-skills` plugin
 ├── skills/                   # canonical skill definitions
 │   ├── check/SKILL.md
 │   ├── cleanup/SKILL.md
@@ -115,10 +131,16 @@ General-OAT-Skills/
 │   └── scaffold/
 │       ├── SKILL.md
 │       └── templates/        # 18 project templates
-├── skills-core/skills/       # bundle: symlinks → check, cleanup, test, load, publish-python, publish-rust
-├── skills-quality/skills/    # bundle: symlinks → qa, scope-it, teach-me
-├── skills-agents/skills/     # bundle: symlinks → scaffold, run-adk-evals
-├── skill-*/skills/           # individual: one symlink each (skill-check/skills/check, etc.)
+├── skills-core/              # bundle: check, cleanup, test, load, publish-python, publish-rust
+│   ├── .claude-plugin/plugin.json
+│   └── skills/               # symlinks → ../../skills/<name>
+├── skills-quality/           # bundle: qa, scope-it, teach-me
+├── skills-agents/            # bundle: scaffold, run-adk-evals
+├── skill-*/                  # individual: one skill each (skill-check, skill-qa, ...)
+│   ├── .claude-plugin/plugin.json
+│   └── skills/<name>         # symlink → ../../skills/<name>
+├── .github/workflows/
+│   └── validate-plugins.yml  # CI: validates every marketplace install target
 ├── CODE_OF_CONDUCT.txt
 ├── CONTRIBUTING.txt
 ├── LICENSE
