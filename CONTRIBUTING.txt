@@ -77,6 +77,11 @@ Verify any new target with:
     claude plugin install oat-<name>@general-oat-skills
     claude plugin details oat-<name>@general-oat-skills   # expect Skills (1)
 
+CI runs the first two for every target on each PR -- see
+.github/workflows/validate-plugins.yml. It fails on a missing plugin.json, a
+name that does not match the marketplace entry, a version out of sync with
+metadata.version, and a wrapper symlink placed one level too shallow.
+
 A new skill also needs an `oat-<name>` entry in `.claude-plugin/marketplace.json` and a
 version bump in the marketplace manifest and every `plugin.json`.
 
