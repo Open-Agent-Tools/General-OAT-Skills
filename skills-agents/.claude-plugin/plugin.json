@@ -1,0 +1,16 @@
+{
+  "name": "oat-agents",
+  "version": "2.4.5",
+  "description": "AI agent development: project scaffolding (18 templates), ADK evaluations",
+  "author": {
+    "name": "Open Agent Tools"
+  },
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ai-agents",
+    "scaffolding",
+    "adk",
+    "bundle"
+  ]
+}

@@ -140,11 +140,15 @@ To add a new skill:
    The `skills/` level is required — plugin skills are discovered at
    `<plugin-root>/skills/<name>/SKILL.md`, and a symlink one level shallower installs
    cleanly while shipping zero skills.
-3. Add an `oat-<name>` entry to `.claude-plugin/marketplace.json` pointing at `./skill-<name>`,
-   and bump the version in both `.claude-plugin/*.json`
-4. Verify with `claude plugin validate .`, then install the target and confirm
-   `claude plugin details oat-<name>@general-oat-skills` reports `Skills (1)`
-5. Submit a pull request
+3. Give the new wrapper root its own `skill-<name>/.claude-plugin/plugin.json`. Every
+   directory a marketplace `source` points at is a plugin root and needs a manifest —
+   without one the entry still lists in `/plugin`, but nothing installs.
+4. Add an `oat-<name>` entry to `.claude-plugin/marketplace.json` pointing at `./skill-<name>`,
+   and bump the version in the marketplace and in every `plugin.json`
+5. Verify with `claude plugin validate .` **and** `claude plugin validate skill-<name>`, then
+   install the target and confirm `claude plugin details oat-<name>@general-oat-skills`
+   reports `Skills (1)`
+6. Submit a pull request
 
 ## License
 

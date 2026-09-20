@@ -1,0 +1,15 @@
+{
+  "name": "oat-test",
+  "version": "2.4.5",
+  "description": "Run pytest suite with coverage reporting and auto-fix on failures",
+  "author": {
+    "name": "Open Agent Tools"
+  },
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "testing",
+    "pytest",
+    "coverage"
+  ]
+}
