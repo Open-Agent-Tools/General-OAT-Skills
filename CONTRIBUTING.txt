@@ -49,41 +49,38 @@ Each skill is a `SKILL.md` file inside a `skills/<name>/` directory. The file us
 
 No build or compilation required - edit the `SKILL.md` files directly.
 
-`skills/` is the single source of truth. Every skill is also exposed as its own install
-target and through a bundle, using symlink wrapper roots:
+Each skill is a self-contained plugin under plugins/:
 
-    skill-<name>/skills/<name>   -> ../../skills/<name>
-    skills-<bundle>/skills/<name> -> ../../skills/<name>
+    plugins/oat-<name>/.claude-plugin/plugin.json
+    plugins/oat-<name>/skills/<name>/SKILL.md
 
-The `skills/` level inside each wrapper is required. Plugin skills are discovered at
-`<plugin-root>/skills/<name>/SKILL.md`; a symlink placed one level shallower installs
-without error and ships zero skills.
+Every directory a marketplace `source` points at is a plugin root and needs its
+own plugin.json, with `name` matching the marketplace entry (oat-<name>). A
+directory without one still lists in /plugin and still reports a successful
+install -- the files copy into the plugin cache -- but the session cannot
+register it, so the skills never load.
 
-Each wrapper root is also a plugin root and needs its own manifest:
+Never commit a symlink. The repo used to share one skills/ directory across
+wrapper roots via symlinks, which is what the Claude Code docs suggest for
+sharing files between plugins. Git checks symlinks out as plain text files on
+Windows unless core.symlinks is enabled, so the wrapper contained a 21-byte file
+where a directory should be and shipped zero skills. Each plugin now owns its
+skills outright. CI rejects symlinks.
 
-    skill-<name>/.claude-plugin/plugin.json
-    skills-<bundle>/.claude-plugin/plugin.json
-
-Its `name` must match the marketplace entry (`oat-<name>`), not the directory. A wrapper
-without a manifest still appears in `/plugin` — the marketplace lists it from
-marketplace.json alone — but `claude plugin install` produces a plugin the session cannot
-register, so the skills never become usable. `claude plugin validate .` only checks the
-marketplace manifest and will not catch this; validate each root separately.
-
-Verify any new target with:
+`claude plugin validate .` only checks the marketplace manifest and does not
+descend into the sources, so validate each plugin separately:
 
     claude plugin validate .
-    claude plugin validate skill-<name>
+    claude plugin validate plugins/oat-<name> --strict
     claude plugin install oat-<name>@general-oat-skills
     claude plugin details oat-<name>@general-oat-skills   # expect Skills (1)
 
-CI runs the first two for every target on each PR -- see
-.github/workflows/validate-plugins.yml. It fails on a missing plugin.json, a
-name that does not match the marketplace entry, a version out of sync with
-metadata.version, and a wrapper symlink placed one level too shallow.
+CI runs these for every plugin on each PR -- see
+.github/workflows/validate-plugins.yml.
 
-A new skill also needs an `oat-<name>` entry in `.claude-plugin/marketplace.json` and a
-version bump in the marketplace manifest and every `plugin.json`.
+A new skill also needs an oat-<name> entry in .claude-plugin/marketplace.json, a
+version bump in the marketplace manifest and the plugin.json, and an install
+command in the README.
 
 ## Making Changes
 

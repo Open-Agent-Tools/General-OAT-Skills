@@ -1,0 +1,14 @@
+{
+  "name": "oat-check",
+  "version": "3.0.0",
+  "description": "Quick project health check: git status, recent commits, GitHub Actions, package build",
+  "author": {
+    "name": "Open Agent Tools"
+  },
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "dev-workflow",
+    "health-check"
+  ]
+}

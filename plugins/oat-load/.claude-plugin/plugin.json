@@ -1,0 +1,14 @@
+{
+  "name": "oat-load",
+  "version": "3.0.0",
+  "description": "Load all markdown files from a directory into context",
+  "author": {
+    "name": "Open Agent Tools"
+  },
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "documentation",
+    "context"
+  ]
+}

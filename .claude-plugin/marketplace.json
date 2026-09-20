@@ -5,145 +5,154 @@
   },
   "metadata": {
     "description": "Dev workflow and AI agent development skills for Claude Code",
-    "version": "2.4.5"
+    "version": "3.0.0"
   },
   "plugins": [
     {
-      "name": "general-oat-skills",
-      "source": "./",
-      "description": "All skills: project scaffolding, code quality, testing, review, QA, teaching, and release management",
-      "version": "2.4.5",
-      "license": "Apache-2.0",
-      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["dev-workflow", "scaffolding", "code-quality", "ai-agents", "bundle"]
-    },
-
-    {
-      "name": "oat-core",
-      "source": "./skills-core",
-      "description": "Core dev workflow: check, cleanup, test, load, publish-python, publish-rust",
-      "version": "2.4.5",
-      "license": "Apache-2.0",
-      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["dev-workflow", "code-quality", "testing", "bundle"]
-    },
-    {
-      "name": "oat-quality",
-      "source": "./skills-quality",
-      "description": "Quality and learning: multi-agent QA audit, task scoping, interactive teach-me lessons",
-      "version": "2.4.5",
-      "license": "Apache-2.0",
-      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["qa", "audit", "learning", "bundle"]
-    },
-    {
-      "name": "oat-agents",
-      "source": "./skills-agents",
-      "description": "AI agent development: project scaffolding (18 templates), ADK evaluations",
-      "version": "2.4.5",
-      "license": "Apache-2.0",
-      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["ai-agents", "scaffolding", "adk", "bundle"]
-    },
-
-    {
       "name": "oat-check",
-      "source": "./skill-check",
+      "source": "./plugins/oat-check",
       "description": "Quick project health check: git status, recent commits, GitHub Actions, package build",
-      "version": "2.4.5",
+      "version": "3.0.0",
       "license": "Apache-2.0",
       "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["dev-workflow", "health-check"]
+      "keywords": [
+        "dev-workflow",
+        "health-check"
+      ]
     },
     {
       "name": "oat-cleanup",
-      "source": "./skill-cleanup",
+      "source": "./plugins/oat-cleanup",
       "description": "Code quality pipeline: ruff linting/formatting, mypy type checking, pytest",
-      "version": "2.4.5",
+      "version": "3.0.0",
       "license": "Apache-2.0",
       "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["code-quality", "linting", "formatting"]
-    },
-    {
-      "name": "oat-test",
-      "source": "./skill-test",
-      "description": "Run pytest suite with coverage reporting and auto-fix on failures",
-      "version": "2.4.5",
-      "license": "Apache-2.0",
-      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["testing", "pytest", "coverage"]
+      "keywords": [
+        "code-quality",
+        "linting",
+        "formatting"
+      ]
     },
     {
       "name": "oat-load",
-      "source": "./skill-load",
+      "source": "./plugins/oat-load",
       "description": "Load all markdown files from a directory into context",
-      "version": "2.4.5",
+      "version": "3.0.0",
       "license": "Apache-2.0",
       "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["documentation", "context"]
+      "keywords": [
+        "documentation",
+        "context"
+      ]
     },
     {
       "name": "oat-publish-python",
-      "source": "./skill-publish-python",
+      "source": "./plugins/oat-publish-python",
       "description": "Python release management: cleanup, version bump, uv build, GitHub release, publish monitoring",
-      "version": "2.4.5",
+      "version": "3.0.0",
       "license": "Apache-2.0",
       "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["release", "publishing", "versioning", "python"]
+      "keywords": [
+        "release",
+        "publishing",
+        "versioning",
+        "python"
+      ]
     },
     {
       "name": "oat-publish-rust",
-      "source": "./skill-publish-rust",
+      "source": "./plugins/oat-publish-rust",
       "description": "Rust crate/workspace release: verification gates, version bump, signed tag, CI or direct crates.io publish",
-      "version": "2.4.5",
+      "version": "3.0.0",
       "license": "Apache-2.0",
       "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["release", "publishing", "versioning", "rust", "cargo"]
+      "keywords": [
+        "release",
+        "publishing",
+        "versioning",
+        "rust",
+        "cargo"
+      ]
     },
     {
       "name": "oat-qa",
-      "source": "./skill-qa",
+      "source": "./plugins/oat-qa",
       "description": "Multi-agent QA audit: code quality, architecture, security, tests, CI/CD, docs",
-      "version": "2.4.5",
+      "version": "3.0.0",
       "license": "Apache-2.0",
       "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["qa", "audit", "security", "code-review"]
-    },
-    {
-      "name": "oat-scaffold",
-      "source": "./skill-scaffold",
-      "description": "Create projects from 18 templates: Python, Node.js, Rust, Go, and AI agent frameworks",
-      "version": "2.4.5",
-      "license": "Apache-2.0",
-      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["scaffolding", "templates", "ai-agents"]
-    },
-    {
-      "name": "oat-scope-it",
-      "source": "./skill-scope-it",
-      "description": "Scope a vague task through one-question-at-a-time interview into a ready-to-use prompt: what, why, constraints, done",
-      "version": "2.4.5",
-      "license": "Apache-2.0",
-      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["scoping", "planning", "prompt-engineering", "requirements"]
-    },
-    {
-      "name": "oat-teach-me",
-      "source": "./skill-teach-me",
-      "description": "Interactive lesson-based teaching with web research, quizzes, and difficulty levels",
-      "version": "2.4.5",
-      "license": "Apache-2.0",
-      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["learning", "teaching", "interactive"]
+      "keywords": [
+        "qa",
+        "audit",
+        "security",
+        "code-review"
+      ]
     },
     {
       "name": "oat-run-adk-evals",
-      "source": "./skill-run-adk-evals",
+      "source": "./plugins/oat-run-adk-evals",
       "description": "Run Google ADK evaluations with detailed results and rate limiting",
-      "version": "2.4.5",
+      "version": "3.0.0",
       "license": "Apache-2.0",
       "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
-      "keywords": ["adk", "evaluations", "ai-agents"]
+      "keywords": [
+        "adk",
+        "evaluations",
+        "ai-agents"
+      ]
+    },
+    {
+      "name": "oat-scaffold",
+      "source": "./plugins/oat-scaffold",
+      "description": "Create projects from 18 templates: Python, Node.js, Rust, Go, and AI agent frameworks",
+      "version": "3.0.0",
+      "license": "Apache-2.0",
+      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+      "keywords": [
+        "scaffolding",
+        "templates",
+        "ai-agents"
+      ]
+    },
+    {
+      "name": "oat-scope-it",
+      "source": "./plugins/oat-scope-it",
+      "description": "Scope a vague task through one-question-at-a-time interview into a ready-to-use prompt: what, why, constraints, done",
+      "version": "3.0.0",
+      "license": "Apache-2.0",
+      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+      "keywords": [
+        "scoping",
+        "planning",
+        "prompt-engineering",
+        "requirements"
+      ]
+    },
+    {
+      "name": "oat-teach-me",
+      "source": "./plugins/oat-teach-me",
+      "description": "Interactive lesson-based teaching with web research, quizzes, and difficulty levels",
+      "version": "3.0.0",
+      "license": "Apache-2.0",
+      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+      "keywords": [
+        "learning",
+        "teaching",
+        "interactive"
+      ]
+    },
+    {
+      "name": "oat-test",
+      "source": "./plugins/oat-test",
+      "description": "Run pytest suite with coverage reporting and auto-fix on failures",
+      "version": "3.0.0",
+      "license": "Apache-2.0",
+      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+      "keywords": [
+        "testing",
+        "pytest",
+        "coverage"
+      ]
     }
   ]
 }

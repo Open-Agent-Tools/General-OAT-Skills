@@ -1,0 +1,16 @@
+{
+  "name": "oat-publish-python",
+  "version": "3.0.0",
+  "description": "Python release management: cleanup, version bump, uv build, GitHub release, publish monitoring",
+  "author": {
+    "name": "Open Agent Tools"
+  },
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "release",
+    "publishing",
+    "versioning",
+    "python"
+  ]
+}

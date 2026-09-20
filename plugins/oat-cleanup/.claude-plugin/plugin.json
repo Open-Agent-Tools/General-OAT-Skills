@@ -1,0 +1,15 @@
+{
+  "name": "oat-cleanup",
+  "version": "3.0.0",
+  "description": "Code quality pipeline: ruff linting/formatting, mypy type checking, pytest",
+  "author": {
+    "name": "Open Agent Tools"
+  },
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "code-quality",
+    "linting",
+    "formatting"
+  ]
+}

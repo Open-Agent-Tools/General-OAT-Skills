@@ -1,23 +1,16 @@
-# Validate every install target declared in the marketplace manifest.
+# Validate every plugin in the marketplace.
 #
-# `claude plugin validate .` alone only checks marketplace.json and never
-# descends into the directories its `source` fields point at. A wrapper root
-# missing .claude-plugin/plugin.json still lists in /plugin and still reports a
-# successful install -- the files copy into the plugin cache -- but the session
-# cannot register the plugin, so the skills never load. That shipped for four
-# releases. This job walks every source and fails on it.
+# `claude plugin validate .` on its own only checks marketplace.json -- it does
+# not descend into the directories its `source` fields point at. This walks each
+# one. It also refuses symlinks: git checks those out as plain text files on
+# Windows, which silently turns a skill directory into a 21-byte file and ships
+# a plugin with zero skills.
 name: Validate Plugins
 
 on:
   push:
     branches: [main]
   pull_request:
-    paths:
-      - '.claude-plugin/**'
-      - 'skills/**'
-      - 'skill-*/**'
-      - 'skills-*/**'
-      - '.github/workflows/validate-plugins.yml'
   workflow_dispatch:
 
 permissions:
@@ -33,53 +26,25 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install Claude Code CLI
-        run: npm install -g @anthropic-ai/claude-code
+      - run: npm install -g @anthropic-ai/claude-code
 
-      - name: Validate marketplace and every install target
+      - name: No symlinks (they break on Windows checkouts)
         run: |
-          set -uo pipefail
-          fail=0
-          mp=.claude-plugin/marketplace.json
-          want=$(jq -r '.metadata.version' "$mp")
-          echo "marketplace version: $want"
+          if git ls-files -s | awk '$1 == "120000" { print $4 }' | grep .; then
+            echo "::error::the paths above are symlinks -- commit real files instead"
+            exit 1
+          fi
 
-          # The marketplace manifest itself, strictly -- catches misspelled fields.
-          claude plugin validate . --strict || fail=1
+      - name: Validate marketplace and every plugin
+        run: |
+          set -euo pipefail
+          claude plugin validate . --strict
+          jq -r '.plugins[].source' .claude-plugin/marketplace.json | while read -r dir; do
+            echo "--- $dir"
+            claude plugin validate "$dir" --strict
+          done
 
-          while read -r name src; do
-            dir=${src#./}; dir=${dir:-.}
-            printf '\n--- %s (%s)\n' "$name" "$dir"
-
-            man="$dir/.claude-plugin/plugin.json"
-            if [ ! -f "$man" ]; then
-              echo "::error::$name: missing $man -- the entry lists in /plugin and installs, but the session cannot register it and the skills never load"
-              fail=1; continue
-            fi
-
-            # Not --strict: wrapper roots use symlinks, and validate warns that it
-            # does not follow them. A session does. See CONTRIBUTING.txt.
-            claude plugin validate "$dir" || fail=1
-
-            got=$(jq -r '.name' "$man")
-            [ "$got" = "$name" ] || { echo "::error::$name: plugin.json name is '$got', must match the marketplace entry"; fail=1; }
-
-            v=$(jq -r '.version' "$man")
-            [ "$v" = "$want" ] || { echo "::error::$name: plugin.json version $v != marketplace $want"; fail=1; }
-
-            ev=$(jq -r --arg n "$name" '.plugins[]|select(.name==$n)|.version' "$mp")
-            [ "$ev" = "$want" ] || { echo "::error::$name: marketplace entry version $ev != $want"; fail=1; }
-
-            # -L follows the wrapper symlinks. Catches a symlink placed one level
-            # too shallow, which installs cleanly while shipping zero skills.
-            n=$(find -L "$dir/skills" -name SKILL.md 2>/dev/null | wc -l | tr -d ' ')
-            [ "$n" -gt 0 ] || { echo "::error::$name: no SKILL.md found under $dir/skills"; fail=1; }
-            echo "skills: $n"
-          done < <(jq -r '.plugins[] | "\(.name) \(.source)"' "$mp")
-
-          exit $fail
-
-      - name: Check README install commands resolve
+      - name: README documents every plugin
         run: |
           python3 - <<'PY'
           import json, re, pathlib, sys
@@ -93,7 +58,7 @@ jobs:
               if plug not in names:
                   print(f"::error::README: no plugin named '{plug}' ({c})"); fail = True
               elif m != mkt:
-                  print(f"::error::README: '{c}' has the arguments reversed -- the form is <plugin>@{mkt}"); fail = True
+                  print(f"::error::README: '{c}' is reversed -- the form is <plugin>@{mkt}"); fail = True
           for n in sorted(names - {c.partition("@")[0] for c in cmds}):
               print(f"::error::README: no install command documented for '{n}'"); fail = True
           print(f"{len(cmds)} install commands, {len(names)} plugins")

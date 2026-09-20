@@ -1,0 +1,15 @@
+{
+  "name": "oat-scaffold",
+  "version": "3.0.0",
+  "description": "Create projects from 18 templates: Python, Node.js, Rust, Go, and AI agent frameworks",
+  "author": {
+    "name": "Open Agent Tools"
+  },
+  "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "scaffolding",
+    "templates",
+    "ai-agents"
+  ]
+}

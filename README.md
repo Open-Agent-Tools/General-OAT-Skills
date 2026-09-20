@@ -4,71 +4,49 @@ A curated collection of skills for [Claude Code](https://docs.anthropic.com/en/d
 
 ## Install
 
-### As a Plugin (Recommended)
-
-From inside Claude Code, first add the marketplace:
+From inside Claude Code, add the marketplace once:
 
 ```
 /plugin marketplace add Open-Agent-Tools/General-OAT-Skills
 ```
 
-Then install at the level you need. The form is `<plugin>@<marketplace>`, so the
-marketplace name `general-oat-skills` is always on the **right** of the `@`:
+Then install the skills you want. Each skill is its own plugin, so you take
+only what you need:
 
-**Everything** — all 11 skills:
-```
-/plugin install general-oat-skills@general-oat-skills
-```
-(The bundle plugin and the marketplace share a name. That one really is doubled.)
-
-**Bundles** — thematic groups:
-```
-/plugin install oat-core@general-oat-skills      # check, cleanup, test, load, publish-python, publish-rust
-/plugin install oat-quality@general-oat-skills   # qa, scope-it, teach-me
-/plugin install oat-agents@general-oat-skills    # scaffold, run-adk-evals
-```
-
-**Individual skills** — pick exactly what you need:
 ```
 /plugin install oat-check@general-oat-skills
 /plugin install oat-cleanup@general-oat-skills
-/plugin install oat-test@general-oat-skills
 /plugin install oat-load@general-oat-skills
 /plugin install oat-publish-python@general-oat-skills
 /plugin install oat-publish-rust@general-oat-skills
 /plugin install oat-qa@general-oat-skills
-/plugin install oat-scope-it@general-oat-skills
-/plugin install oat-scaffold@general-oat-skills
-/plugin install oat-teach-me@general-oat-skills
 /plugin install oat-run-adk-evals@general-oat-skills
+/plugin install oat-scaffold@general-oat-skills
+/plugin install oat-scope-it@general-oat-skills
+/plugin install oat-teach-me@general-oat-skills
+/plugin install oat-test@general-oat-skills
 ```
 
-Then `/reload-plugins` to pick them up without restarting.
+The form is `<plugin>@<marketplace>` — the marketplace name is always on the
+right of the `@`. Run `/reload-plugins` afterwards to pick them up without
+restarting.
 
 ### Manual
 
-Clone and symlink into your project:
+Copy a skill directory into `.claude/skills/` (project) or `~/.claude/skills/`
+(global):
 
 ```bash
 git clone https://github.com/Open-Agent-Tools/General-OAT-Skills.git
-ln -s "$(pwd)/General-OAT-Skills/skills" /path/to/your-project/.claude/skills
+cp -R General-OAT-Skills/plugins/oat-check/skills/check ~/.claude/skills/
 ```
-
-Or copy individual skill directories into `.claude/skills/` (project-level) or `~/.claude/skills/` (global).
 
 ## Skills
 
-Plugin skills are namespaced by the plugin you installed them from, as
-`/<plugin>:<skill>`. The same skill therefore has a different name depending on
-which target you chose:
-
-| installed via | invoke `check` as |
-|---|---|
-| `general-oat-skills` | `/general-oat-skills:check` |
-| `oat-core` | `/oat-core:check` |
-| `oat-check` | `/oat-check:check` |
-
-Only the manual install above gives you a bare `/check`.
+Plugin skills are namespaced by the plugin that provides them, so `check`
+installed from `oat-check` is invoked as `/oat-check:check`. A bare `/check`
+also works unless another command already uses that name. The manual install
+above gives you a bare `/check` only.
 
 ### Core Dev Workflow
 
@@ -112,39 +90,23 @@ Only the manual install above gives you a bare `/check`.
 
 ## Project Structure
 
+Each skill is a self-contained plugin. There is no shared directory and no
+symlinks, so a checkout behaves the same on macOS, Linux, and Windows.
+
 ```
 General-OAT-Skills/
 ├── .claude-plugin/
-│   ├── marketplace.json      # all 15 install targets (full, bundles, individual)
-│   └── plugin.json           # the root is also the `general-oat-skills` plugin
-├── skills/                   # canonical skill definitions
-│   ├── check/SKILL.md
-│   ├── cleanup/SKILL.md
-│   ├── load/SKILL.md
-│   ├── publish-python/SKILL.md
-│   ├── publish-rust/SKILL.md
-│   ├── qa/SKILL.md
-│   ├── run-adk-evals/SKILL.md
-│   ├── scope-it/SKILL.md
-│   ├── teach-me/SKILL.md
-│   ├── test/SKILL.md
-│   └── scaffold/
-│       ├── SKILL.md
-│       └── templates/        # 18 project templates
-├── skills-core/              # bundle: check, cleanup, test, load, publish-python, publish-rust
-│   ├── .claude-plugin/plugin.json
-│   └── skills/               # symlinks → ../../skills/<name>
-├── skills-quality/           # bundle: qa, scope-it, teach-me
-├── skills-agents/            # bundle: scaffold, run-adk-evals
-├── skill-*/                  # individual: one skill each (skill-check, skill-qa, ...)
-│   ├── .claude-plugin/plugin.json
-│   └── skills/<name>         # symlink → ../../skills/<name>
-├── .github/workflows/
-│   └── validate-plugins.yml  # CI: validates every marketplace install target
-├── CODE_OF_CONDUCT.txt
-├── CONTRIBUTING.txt
-├── LICENSE
-└── SECURITY.txt
+│   └── marketplace.json          # the 11 install targets
+└── plugins/
+    ├── oat-check/
+    │   ├── .claude-plugin/plugin.json
+    │   └── skills/check/SKILL.md
+    ├── oat-scaffold/
+    │   ├── .claude-plugin/plugin.json
+    │   └── skills/scaffold/
+    │       ├── SKILL.md
+    │       └── templates/        # 18 project templates
+    └── ...                       # one directory per skill
 ```
 
 ## Contributing
@@ -153,24 +115,20 @@ See [CONTRIBUTING.txt](CONTRIBUTING.txt) for full guidelines.
 
 To add a new skill:
 
-1. Create `skills/<skill-name>/SKILL.md` with YAML frontmatter (`name`, `description`, `allowed-tools`)
-2. Add the wrapper roots so the skill ships through every install target:
-   ```bash
-   mkdir -p skill-<name>/skills && ln -s ../../skills/<name> skill-<name>/skills/<name>
-   ln -s ../../skills/<name> skills-<bundle>/skills/<name>
-   ```
-   The `skills/` level is required — plugin skills are discovered at
-   `<plugin-root>/skills/<name>/SKILL.md`, and a symlink one level shallower installs
-   cleanly while shipping zero skills.
-3. Give the new wrapper root its own `skill-<name>/.claude-plugin/plugin.json`. Every
-   directory a marketplace `source` points at is a plugin root and needs a manifest —
-   without one the entry still lists in `/plugin`, but nothing installs.
-4. Add an `oat-<name>` entry to `.claude-plugin/marketplace.json` pointing at `./skill-<name>`,
-   and bump the version in the marketplace and in every `plugin.json`
-5. Verify with `claude plugin validate .` **and** `claude plugin validate skill-<name>`, then
-   install the target and confirm `claude plugin details oat-<name>@general-oat-skills`
-   reports `Skills (1)`
+1. Create `plugins/oat-<name>/skills/<name>/SKILL.md` with YAML frontmatter
+   (`name`, `description`, `allowed-tools`)
+2. Create `plugins/oat-<name>/.claude-plugin/plugin.json` with `name` set to
+   `oat-<name>` — every directory a marketplace `source` points at is a plugin
+   root and needs a manifest
+3. Add an `oat-<name>` entry to `.claude-plugin/marketplace.json` pointing at
+   `./plugins/oat-<name>`, and bump the version in both files
+4. Add the install command to the README — CI checks every plugin has one
+5. Verify with `claude plugin validate .` and
+   `claude plugin validate plugins/oat-<name> --strict`
 6. Submit a pull request
+
+Never commit a symlink. Git checks them out as plain text files on Windows,
+which turns a skill directory into an unusable stub; CI rejects them.
 
 ## License
 
