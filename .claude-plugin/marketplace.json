@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Dev workflow and AI agent development skills for Claude Code",
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "plugins": [
     {
@@ -31,6 +31,20 @@
         "code-quality",
         "linting",
         "formatting"
+      ]
+    },
+    {
+      "name": "oat-ledger-tasks",
+      "source": "./plugins/oat-ledger-tasks",
+      "description": "Task and dependency management for coding agents via YYLO Ledger: Kanban board and task state as hash-chained Markdown in the repo",
+      "version": "3.1.0",
+      "license": "Apache-2.0",
+      "repository": "https://github.com/Open-Agent-Tools/General-OAT-Skills",
+      "keywords": [
+        "task-management",
+        "kanban",
+        "dependencies",
+        "dev-workflow"
       ]
     },
     {
