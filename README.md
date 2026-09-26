@@ -16,6 +16,7 @@ only what you need:
 ```
 /plugin install oat-check@general-oat-skills
 /plugin install oat-cleanup@general-oat-skills
+/plugin install oat-ledger-tasks@general-oat-skills
 /plugin install oat-load@general-oat-skills
 /plugin install oat-publish-python@general-oat-skills
 /plugin install oat-publish-rust@general-oat-skills
@@ -55,6 +56,7 @@ above gives you a bare `/check` only.
 | `check` | Quick project health check — git status, recent commits, GitHub Actions, package build |
 | `cleanup` | Full code quality pipeline — ruff, mypy, pytest — with validation loops |
 | `test` | Run pytest suite with coverage reporting and auto-fix on failures |
+| `ledger-tasks [command]` | Task and dependency management for coding agents via YYLO Ledger — Kanban board and task state as hash-chained Markdown in the repo |
 | `load [directory]` | Load all markdown files from a directory into context |
 | `publish-python <version>` | Python release — cleanup, version bump, uv build, GitHub release |
 | `publish-rust <bump>` | Rust crate/workspace release — verify gates, version bump, signed tag, CI or direct crates.io publish |
@@ -96,7 +98,7 @@ symlinks, so a checkout behaves the same on macOS, Linux, and Windows.
 ```
 General-OAT-Skills/
 ├── .claude-plugin/
-│   └── marketplace.json          # the 11 install targets
+│   └── marketplace.json          # the 12 install targets
 └── plugins/
     ├── oat-check/
     │   ├── .claude-plugin/plugin.json

@@ -1,0 +1,17 @@
+{
+  "name": "oat-ledger-tasks",
+  "version": "3.1.0",
+  "description": "Task and dependency management for coding agents via YYLO Ledger: Kanban board and task state as hash-chained Markdown in the repo",
+  "author": {
+    "name": "yylo-dev"
+  },
+  "homepage": "https://github.com/yylo-dev/yylo-ledger",
+  "repository": "https://github.com/yylo-dev/yylo-skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "task-management",
+    "kanban",
+    "dependencies",
+    "dev-workflow"
+  ]
+}
